@@ -21,6 +21,7 @@ class Xo:
 
     def print_board(self):
         print("""
+            |    |
          {}  | {}  | {} 
         ____|____|____
             |    |
