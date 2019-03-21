@@ -77,9 +77,14 @@ class Xo:
         for comb in combs:
             if all(self.board[factor-1] == self.player for factor in comb):
                 self.game_over = True
-            elif all(self.board[factor-1] == self.me for factor in comb):
+                return
+            if all(self.board[factor-1] == self.me for factor in comb):
                 self.game_over = True
                 self.my_win = True
+                return
+        if len(self.stack) == 9:
+            self.game_over = True
+            self.is_standoff = True
 
     def clear(self):
         self.player = None
@@ -90,12 +95,17 @@ class Xo:
         self.me_first = False
         self.my_turn = False
         self.game_over = False
+        self.is_standoff = False
 
     def end_game(self):
-        if self.my_win:
-            print('GAME OVER!\n you are such a loser')
+        if self.is_standoff:
+            print('GAME OVER!')
         else:
-            print('YOU WON!')
+            self.save_stack()
+            if self.my_win:
+                print('GAME OVER!\n you are such a loser')
+            else:
+                print('YOU WON!')
         menu = input('to play again, press 0. press any other key to quit: ')
         if menu == '0':
             self.clear()
@@ -120,7 +130,7 @@ class Xo:
             self.set_game_over()
         self.end_game()
 
-
-
+    def save_stack(self):
+        return self.stack
 
 
