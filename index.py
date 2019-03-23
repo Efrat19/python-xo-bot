@@ -26,31 +26,37 @@ def menu():
 def play_alone(counter):
     bot1 = Xo()
     bot2 = Xo()
-    is_1_first = random.choice([True,False])
-    bot1.me_first = is_1_first
-    bot2.me_first = not is_1_first
-    bot1.me = 'X'
-    bot1.player = 'O'
-    bot2.me = 'O'
-    bot2.player = 'X'
-    while counter:
+    while counter>0:
         bot1.clear()
         bot2.clear()
+        is_1_first = random.choice([True,False])
+        bot1.me_first = is_1_first
+        bot1.my_turn =is_1_first
+        bot2.me_first = not is_1_first
+        bot1.me = 'X'
+        bot1.player = 'O'
+        bot2.me = 'Y'
+        bot2.player = 'Z'
+        print('bot1 players: {}, {}'.format(bot1.me,bot1.player))
+        print('bot2 players: {}, {}'.format(bot2.me,bot2.player))
         while not bot1.game_over:
             if bot1.my_turn:
                 bot1.my_move()
                 bot2.stack = bot1.stack
+                print(bot1.stack)
             else:
                 bot2.my_move()
                 bot1.stack = bot2.stack
+                print(bot1.stack)
             bot1.set_game_over()
         if not bot1.is_standoff:
             bot1.save_stack()
             msg = 'bot1 won' if bot1.my_win else 'bot2 won'
-            counter -= counter
         else:
             msg = 'standoff'
         print(msg)
+        counter = counter-1
+        bot1.print_board()
     
 
 

@@ -11,6 +11,7 @@ class Xo:
         self.me_first = False
         self.my_turn = False
         self.game_over = False
+        self.is_standoff = False
 
     def select_player(self):
         players = ['@', '#', 'X', '&', 'O']
@@ -40,6 +41,9 @@ class Xo:
         print('my turn:')
         move = random.choice(self.get_legal_options())
         self.board[int(move)-1] = self.me
+        # if self.me_first:
+            # print(200000000)
+        self.print_board()
         self.stack.append(move)
         self.my_turn = False
 
